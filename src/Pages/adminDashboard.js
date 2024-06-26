@@ -5,6 +5,19 @@ import { setOrdersPend,setOrdersIssu} from '../redux/orderSlice';
 import { useSelector,useDispatch } from 'react-redux';
 
 const AdminDashboard = () => {
+    const date = new Date();
+
+        // Extract the day, month, and year
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Months are zero-indexed
+        const year = date.getFullYear();
+
+        // Pad single digit day and month with leading zero
+        const formattedDay = day < 10 ? `0${day}` : day;
+        const formattedMonth = month < 10 ? `0${month}` : month;
+
+        // Create the formatted date string
+        const formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
 
     const dispatch=useDispatch();
     /**  pending - false , inuse - true */
@@ -20,13 +33,13 @@ const AdminDashboard = () => {
                     headers: {
                         "content-type": "application/json",
                     },
+                    credentials : 'include',
                     body: JSON.stringify({
-                        date: new Date().toLocaleDateString()
+                        date: formattedDate
                     })
                 });
                 const curr = await res.json();
                 dispatch(setOrdersPend(curr.data));
-                console.log(curr.data);
             } catch (error) {
                 toast.error(error.message || "Failed to fetch pending orders");
             }
@@ -39,19 +52,19 @@ const AdminDashboard = () => {
                     headers: {
                         "content-type": "application/json",
                     },
+                    credentials : 'include',
                     body: JSON.stringify({
-                        date: new Date().toLocaleDateString()
+                        date: formattedDate
                     })
                 });
                 const curr = await res.json();
                 dispatch(setOrdersIssu(curr.data));
-                console.log(curr.data);
             } catch (error) {
                 toast.error(error.message || "Failed to fetch pending orders");
             }
         }
         fetchIssuedOrders();
-    }, [user.rollno,dispatch]);
+    }, [user.rollno,dispatch,formattedDate]);
 
     return (
         <div className='pt-24'>

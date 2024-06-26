@@ -18,6 +18,7 @@ const UserBookings = () => {
                     headers: {
                         "content-type": "application/json",
                     },
+                    credentials : 'include',
                     body: JSON.stringify({
                         rollno: user.rollno
                     })

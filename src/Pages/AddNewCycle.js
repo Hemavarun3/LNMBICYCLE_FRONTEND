@@ -19,6 +19,7 @@ function AddNewCycle() {
         headers: {
           "content-type": "application/json",
         },
+        credentials : 'include',
         body: JSON.stringify(data),
       });
       const dataRes=await fetchData.json();
@@ -30,6 +31,7 @@ function AddNewCycle() {
         headers: {
           "content-type": "application/json",
         },
+        credentials : 'include',
         body: JSON.stringify(data),
       });
       const dataRes=await fetchData.json();

@@ -42,12 +42,12 @@ const Login = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials : 'include',
                 body: JSON.stringify(fdata) // Stringify user object to JSON
             });
             const result = await fetchData.json();
             toast(result.message);
         } catch (error) {
-            console.error('Logout error:', error);
             toast("Failed to logout");
         }
     }
@@ -73,6 +73,7 @@ const Login = () => {
           headers: {
             "content-type": "application/json",
           },
+          credentials : 'include',
           body: JSON.stringify(datal),
         });
 
